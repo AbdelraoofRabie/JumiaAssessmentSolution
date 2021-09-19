@@ -49,29 +49,12 @@ public class BatchConfig {
     @StepScope
 	public JdbcPagingItemReader<RawCustomerData> reader(){
        try {
-    	   BeanWrapperFieldSetMapper<RawCustomerData> personBeanWrapperFieldSetMapper = new BeanWrapperFieldSetMapper<RawCustomerData>() {{
-               setTargetType(RawCustomerData.class);
-           }};
-//    	   
-//    	   DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-//           dataSourceBuilder.driverClassName("org.sqlite.JDBC");
-//           dataSourceBuilder.url("jdbc:sqlite:memory:phonedb");
-//    	   SQLiteDataSource ds = new SQLiteDataSource();
-//           ds.setUrl("jdbc:sqlite:D:/LearningSpace/Jumia2ndStageAssessment/phone-number-validation/sample.db/customer.sqlite");
-//           final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//           dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-//           dataSource.setUrl("jdbc:mysql://localhost:3306/chatbotdb?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=yes&characterEncoding=UTF-8&characterSetResults=UTF-8");
-//           dataSource.setUsername("root");
-//           dataSource.setPassword("abdelraoof12");
+    	  
     	DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.sqlite.JDBC");
         dataSource.setUrl("jdbc:sqlite:sample.db");
-//        dataSource.setUsername("");
-//        dataSource.setPassword("");
-//		final JdbcCursorItemReader<RawCustomerData> reader = new JdbcCursorItemReader<>();
         final JdbcPagingItemReader<RawCustomerData> reader = new      JdbcPagingItemReader<>();
 		reader.setDataSource(dataSource);
-//		reader.setSql("SELECT name, phone FROM customer");
 		SqlitePagingQueryProvider  sqlitePagingQueryProvider = new SqlitePagingQueryProvider();
 		sqlitePagingQueryProvider.setSelectClause("*");
 		sqlitePagingQueryProvider.setFromClause("customer");
@@ -90,16 +73,13 @@ public class BatchConfig {
 				customerData.setName(rs.getString("name"));
 				customerData.setPhone(rs.getString("phone"));
 				customerData.setId(Integer.parseInt(rs.getString("id")));
-				System.out.println(customerData.getPhone());
-				System.out.println(customerData.getName());
-				System.out.println(customerData.getId());
 				return customerData;
 			}
 		});
 		
 		return reader;
        }catch(Exception ex) {
-    	   System.out.println(ex.getMessage() + "errrrrrrrrrrrrrrrrrrrrrrrrrrrrrror");
+    	   System.out.println(ex.getMessage());
     	   return null;
        }
 	}
