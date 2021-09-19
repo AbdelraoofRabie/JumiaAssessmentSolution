@@ -29,7 +29,7 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
     if(jobExecution.getStatus() == BatchStatus.COMPLETED) {
       log.info("!!! JOB FINISHED! Time to verify the results");
       
-      System.out.println(em.createQuery("select count(*) from TCustomer", Object[].class)
+      System.out.println(em.createNativeQuery("select count(*) from t_customer")
         .getResultList().get(0));
    
     }

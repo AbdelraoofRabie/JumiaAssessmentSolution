@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.sqlite.SQLiteDataSource;
@@ -118,9 +119,9 @@ public class BatchConfig {
     }
 
     @Bean
-    public Job importUserJob(JobCompletionNotificationListener listener, Step step1) {
+    public Job importPhoneNumbers(JobCompletionNotificationListener listener, Step step1) {
         return jobBuilderFactory
-            .get("importUserJob")
+            .get("importPhoneNumbers")
             .incrementer(new RunIdIncrementer())
             .listener(listener)
             .flow(step1)
